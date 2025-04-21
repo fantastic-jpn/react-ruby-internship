@@ -40,6 +40,9 @@ export async function AddCorp(formdata: FormData){
   console.log(validData)
 
   //fetch to ruby on rails backend
+
+  // const res = await fetch()
+
   revalidatePath("/")
   redirect("/")
 }

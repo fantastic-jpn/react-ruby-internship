@@ -4,11 +4,14 @@ import Button from "../button";
 import Input from "../input";
 import InputPass from "../inputPass";
 import { useState } from "react";
+import Selection from "../selection";
 
 type FormErrorsType = {
-  username?: string[];
-  password?: string[];
-  confirmPassword?: string[];
+  username?: string[],
+  password?: string[],
+  confirmPassword?: string[],
+  fieldtype?: string[],
+
 };
 
 export default function RegisterForm(){
@@ -59,6 +62,19 @@ export default function RegisterForm(){
             <p className="text-red-500 text-sm">{errors.confirmPassword[0]}</p>
           )}
         </div>
+
+        <div>
+          <label htmlFor="fieldtype" className="text-sm font-medium text-gray-700">
+            Main Field:
+          </label>
+          <Selection values={["front-end","back-end", "full-stack", "AI engineer",  ]} name="fieldtype" id="fieldtype" />
+          {
+            errors?.fieldtype &&(
+              <p className="text-sm text-red-500">{errors.fieldtype[0]}</p>
+            )
+          }
+        </div>
+           
 
         <div className="mt-6">
           <Button type="submit" className="w-full">

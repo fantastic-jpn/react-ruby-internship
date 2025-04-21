@@ -8,6 +8,12 @@ const registerSchema = z.object({
     username: z.string().email({ message: "Invalid email address" }).nonempty({message: "This field is required"}),
     password: z.string().min(6, { message: "Password must be at least 6 characters" }).nonempty({message: "This field is required"}),
     confirmPassword: z.string().nonempty({message: "This field is required"}),
+    fieldtype: z
+    .string()
+    .nonempty({ message: "Main field is required" })
+    .refine((value) => ["front-end", "back-end", "full-stack", "AI engineer"].includes(value), {
+      message: "Invalid field type",
+    }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"],
