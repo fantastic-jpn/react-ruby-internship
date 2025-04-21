@@ -1,3 +1,5 @@
 ./frontend/match-app/node_modules
 
 ./frontend/match-app/.gitignore
+
+db-data/*
