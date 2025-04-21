@@ -40,18 +40,6 @@ export async function AddUser(formdata: FormData){
 
   console.log(validData)
 
-  const response = await fetch("http://localhost:3000/users", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ user: validData }),  // Rails expects `{ user: { ... } }`
-  });
-
-  if(!response.ok){
-    console.error(await response.text());
-    throw new Error("Failed to register user.");
-  }
 
   //fetch to ruby on rails backend 
   revalidatePath("/")
