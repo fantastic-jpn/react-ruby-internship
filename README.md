@@ -106,6 +106,18 @@ fetch("http://{送りたい docker container の サービス名}:{外部 docker
 
 ---
 
+Mysql 頻出コマンド
+
+show databases; (database の名前が表示される)
+
+use {database_name}; (そのデータベースに注目する)
+
+show tables; (データベース内にあるテーブルの一覧を表示)
+
+select * from {table_name}; (table_name内にあるデータすべてを表示)
+
+---
+
 # React-Ruby Fullstack Project Setup Instructions
 
 This project is a full-stack application using React for the frontend and Ruby on Rails for the backend. Follow the steps below to set up your development environment!
