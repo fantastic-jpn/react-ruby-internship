@@ -37,8 +37,22 @@ export async function AddUser(formdata: FormData){
   }
 
   const validData: registerSchemaType = result.data;
+  // subtract confirmpassword from validData
 
   console.log(validData)
+
+  const response = await fetch("http://backend:3000/users", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ user: validData }), 
+  });
+
+  if (!response.ok) {
+    console.error(await response.text());
+    throw new Error("Failed to register user.");
+  }
 
 
   //fetch to ruby on rails backend 

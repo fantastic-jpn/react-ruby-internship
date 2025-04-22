@@ -47,6 +47,24 @@
 9. **ローカルコンピュータから localhost:3000 にアクセス**
    ブラウザで `localhost:3000` にアクセスします。
 
+model の追加（dbのテーブルを宣言するときに使用する）
+rails generate model {モデル名} {カラム名1}:{型} {カラム名2}:{型} {カラム名3}:{型} ... && rails db:migrate　-> app/modelsに{モデル名}.rb が追加される
+
+controllerの追加（モデル追加後にする）
+rails generate controller {モデル名} -> app/controllers に {モデル名}_controllers.rbが追加される
+
+routes の追加 (config/routes.rbを編集)
+resources :{モデル名} このurlに飛んできたときにどの関数を読みだすかことが可能かを決める
+
+違うDocker container からの接続をしたい場合、config/environment/development.rb に以下を追加
+confg.hosts << "{docker container の　サービス名}"
+
+作成したroutes (path) の一覧を見たいとき
+rails routes
+
+データベース初期化
+rails db:drop && rails db:create && rails db:migrate
+
 ---
 
 ## フロントエンド環境セットアップ
@@ -64,6 +82,9 @@
 3. **ローカルコンピュータから localhost:3001 にアクセス**
   
   ブラウザで `localhost:3001` にアクセスします。
+
+ちがうdocker container に情報を送りたい場合
+fetch("http://{送りたいdocker container の サービス名}:{外部docker containerのポート番号}/{ruby側で作成したpath}", {送りたいオブジェクト})
 
 ----
 
