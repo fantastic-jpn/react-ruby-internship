@@ -83,14 +83,20 @@ resources :{モデル名} この url に飛んできたときにどの関数を�
 (よくわからんけどコピペ)
 
 違う Docker container からの接続をしたい場合、`config/environment/development.rb`に以下を追加
+```bash
 config.hosts << "{docker container の　サービス名}"
+```
 （いったんやってる）
 
 作成した routes (path) の一覧を見たいとき
+```bash
 rails routes
+```
 
 データベース初期化
+```bash
 rails db:drop && rails db:create && rails db:migrate
+```
 
 ---
 
@@ -115,8 +121,9 @@ rails db:drop && rails db:create && rails db:migrate
 ---
 ### note
 ちがう docker container に情報を送りたい場合
+```bash
 fetch("http://{送りたい docker container の サービス名}:{外部 docker container のポート番号}/{ruby 側で作成した path}", {送りたいオブジェクト})
-
+```
 ---
 ### Mysql 頻出コマンド
 - show databases: 
