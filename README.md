@@ -219,7 +219,7 @@ fetch("http://{送りたい docker container の サービス名}:{外部 docker
       });
    ```
   - ポイント：
-    - `http://localhost:3002`はバックエンドのURL（docker-compose.ymlで設定したポート）。
+    - `http://{docker service}:3002`はバックエンドのURL（docker-compose.ymlで設定したポート）。
     - `POST`メソッドでデータを送信。
     - `Content-Type: application/json`でJSON形式のデータを送ることを指定。
 
