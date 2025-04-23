@@ -118,88 +118,152 @@ select * from {table_name}; (table_name内にあるデータすべてを表示)
 
 ---
 
-# React-Ruby Fullstack Project Setup Instructions
+## フロントエンドとバックエンドのやり取り手順
 
-This project is a full-stack application using React for the frontend and Ruby on Rails for the backend. Follow the steps below to set up your development environment!
+1. **バックエンドでAPIを作成する**
 
----
-
-## Backend Setup
-
-1. **Build the Docker image**
+    1.1. **モデルの作成**
+    
+    Railsでデータベースのテーブルを作成するには、モデルを生成する必要があるよ。以下のコマンドを使ってモデルを作成しよう！
 
    ```bash
-   docker compose build
+   rails generate model {モデル名} {カラム名1}:{型} {カラム名2}:{型} ...
    ```
 
-2. **Start the Docker container**
+    - 例: ユーザー情報を保存するUserモデルを作成する場合
+
+    ```bash
+    rails generate model User name:string email:string
+    ```
+
+   これで`db/migrate/`ディレクトリにマイグレーションファイルが生成されるよ。
+
+    1.2. **マイグレーションを実行**
+
+    マイグレーションファイルを適用して、データベースにテーブルを作成する。
+    ```bash
+    rails db:migrate
+    ```
+
+    これで`app/models`ディレクトリに`user.rb`が作成されるよ！
+
+    1.3. **コントローラーの作成**
+
+    次に、APIのエンドポイントを作成するためにコントローラーを生成する。
+    ```bash
+    rails generate controller {モデル名}
+    ```
+
+    - 例: `User`モデル用のコントローラーを作成する場合
+    ```bash
+    rails generate controller Users
+    ```
+
+    これで`app/controllers/users_controller.rb`が作成されるよ。ここにAPIのロジックを追加していく！
+
+    1.4. **ルーティングの設定**
+
+    APIのエンドポイントを有効にするために、`config/routes.rb`を編集する。
+    ```bash
+    resources :{モデル名}
+    ```
+    - 例: `User`モデル用のルーティングを追加
+    ```bash
+    resources :users
+    ```
+    これで、`users`にアクセスするとUsersControllerが呼び出されるようになるよ！
+
+
+2. **フロントエンドからバックエンドにリクエストを送る**
+
+    ReactからRailsのAPIにリクエストを送るには、`fetch`や`axios`を使うのが一般的だよ。
+
+   `fetch`を使った例
 
    ```bash
-   docker compose up
+    fetch("http://localhost:3002/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: "Kurocafe",
+        email: "kurocafe@example.com",
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
    ```
+  - ポイント：
+    - `http://localhost:3002`はバックエンドのURL（docker-compose.ymlで設定したポート）。
+    - `POST`メソッドでデータを送信。
+    - `Content-Type: application/json`でJSON形式のデータを送ることを指定。
 
-3. **Access the backend Docker container**
+3. **バックエンドからフロントエンドにデータを返す**
+
+    Railsのコントローラーで、フロントエンドにデータを返すには以下のように書くよ。
 
    ```bash
-   docker exec -it <container_id> /bin/bash
+    class UsersController < ApplicationController
+      def index
+        users = User.all
+        render json: users
+      end
+    end
    ```
+- ポイント:
+  - `render json: users`でデータをJSON形式で返す。
+  - フロントエンドで受け取ったデータを表示したり、処理したりできる。
 
-4. **BInstall Bundler and resolve dependencies**
+4. **フロントエンドでデータを表示する**
+
+    ReactでRailsから取得したデータを表示する例だよ。
 
    ```bash
-   gem install bundler && bundle install
+    import React, { useEffect, useState } from "react";
+
+    function App() {
+      const [users, setUsers] = useState([]);
+
+      useEffect(() => {
+        fetch("http://localhost:3002/users")
+          .then((response) => response.json())
+          .then((data) => setUsers(data))
+          .catch((error) => console.error("Error:", error));
+      }, []);
+
+      return (
+        <div>
+          <h1>Users</h1>
+          <ul>
+            {users.map((user) => (
+              <li key={user.id}>
+                {user.name} ({user.email})
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    }
+
+    export default App;
    ```
 
-5. **Create a new Rails project**
+- ポイント
+  - `useEffect`でコンポーネントがマウントされたときにデータを取得。
+  - `setUsers`で取得したデータをステートに保存。
+  - ステートのデータを`map`でリスト表示。
 
-   ```bash
-   rails new . --api -d mysql
-   ```
+**まとめ**
+1. バックエンド:
 
-6. **Update database configuration**
-
-- Edit the `config/database.yml` file to set:
-  - Database password
-  - Hostname to the Docker DB container service name
-
-7. **Create and migrate the database**
-
-   ```bash
-   rails db:create && rails db:migrate
-   ```
-
-8. **Start the Rails server**
-
-   ```bash
-   rails s -b '0.0.0.0'
-   ```
-
-9. **Verify the backend in your browser**
-
-- Open `http://localhost:3000` in your browser.
-
----
-
-## Frontend Setup
-
-1. **Navigate to the frontend directory inside the Docker container**
-
-   ```bash
-   cd match-app
-   ```
-
-2. **Install dependencies**
-
-   ```bash
-   npm i
-   ```
-
-3. **Start the development server**
-
-   ```bash
-   npm run dev
-   ```
-
-4. **Verify the frontend in your browser**
-
-- Open `http://localhost:3001` in your browser.
+- モデル、コントローラー、ルーティングを設定してAPIを作成。
+- `render json:`でデータを返す。
+2. フロントエンド:
+- `fetch`や`axios`でAPIにリクエストを送信。
+- 取得したデータをReactのステートに保存して表示。
