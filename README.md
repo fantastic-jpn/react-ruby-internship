@@ -54,6 +54,9 @@
 9. **ローカルコンピュータから localhost:3000 にアクセス**
    ブラウザで `localhost:3000` にアクセスします。
 
+---
+### note
+
 docker コンテナ内で行う（backend）
 model の追加（db のテーブルを宣言するときに使用する）
 rails generate model {モデル名} {カラム名 1}:{型} {カラム名 2}:{型} {カラム名 3}:{型} ...
@@ -72,7 +75,7 @@ resources :{モデル名} この url に飛んできたときにどの関数を�
 (よくわからんけどコピペ)
 
 違う Docker container からの接続をしたい場合、config/environment/development.rb に以下を追加
-confg.hosts << "{docker container の　サービス名}"
+config.hosts << "{docker container の　サービス名}"
 （いったんやってる）
 
 作成した routes (path) の一覧を見たいとき
@@ -101,20 +104,28 @@ rails db:drop && rails db:create && rails db:migrate
 
 ブラウザで `localhost:3001` にアクセスします。
 
+---
+### note
 ちがう docker container に情報を送りたい場合
 fetch("http://{送りたい docker container の サービス名}:{外部 docker container のポート番号}/{ruby 側で作成した path}", {送りたいオブジェクト})
 
 ---
+### Mysql 頻出コマンド
+- show databases: 
 
-Mysql 頻出コマンド
+  `database`の名前が表示される
 
-show databases; (database の名前が表示される)
+- use {database_name} 
 
-use {database_name}; (そのデータベースに注目する)
+  そのデータベースに注目する
 
-show tables; (データベース内にあるテーブルの一覧を表示)
+- show tables: 
 
-select * from {table_name}; (table_name内にあるデータすべてを表示)
+    データベース内にあるテーブルの一覧を表示
+
+- select * from {table_name}: 
+
+  `table_name`内にあるデータすべてを表示
 
 ---
 
