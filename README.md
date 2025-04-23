@@ -59,22 +59,30 @@
 
 docker コンテナ内で行う（backend）
 model の追加（db のテーブルを宣言するときに使用する）
+```bash
 rails generate model {モデル名} {カラム名 1}:{型} {カラム名 2}:{型} {カラム名 3}:{型} ...
-db/migrate/に追加される
+```
+`db/migrate/`に追加される
 
-rails db:migrate 　-> app/models に{モデル名}.rb が追加される
+```bash
+rails db:migrate
+```
+`app/models`に`{モデル名}.rb`が追加される
 (なんか自分で追加した。)
 
 controller の追加（モデル追加後にする）
-rails generate controller {モデル名} -> app/controllers に {モデル名}\_controllers.rb が追加される
+```bash
+rails generate controller {モデル名} 
+```
+`app/controllers`に`{モデル名}\_controllers.rb`が追加される
 (なんか自分で関数追加する)
 よくわからんからコピペ
 
-routes の追加 (config/routes.rb を編集)
+routes の追加 (`config/routes.rb`を編集)
 resources :{モデル名} この url に飛んできたときにどの関数を読みだすかことが可能かを決める
 (よくわからんけどコピペ)
 
-違う Docker container からの接続をしたい場合、config/environment/development.rb に以下を追加
+違う Docker container からの接続をしたい場合、`config/environment/development.rb`に以下を追加
 config.hosts << "{docker container の　サービス名}"
 （いったんやってる）
 
