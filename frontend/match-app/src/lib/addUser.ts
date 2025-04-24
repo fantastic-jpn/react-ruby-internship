@@ -41,6 +41,7 @@ export async function AddUser(formdata: FormData){
 
   console.log(validData)
 
+  //going to users#create
   const response = await fetch("http://backend:3000/users", {
     method: "POST",
     headers: {

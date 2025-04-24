@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   # update: ユーザー情報を更新するアクションだよ。(PATCH /users/:id)
   # show: ユーザー情報を表示するアクションだよ。(GET /users/:id)
   # create: 新しいユーザーを作成するアクションだよ。(POST /users)
-  resources :users, only: [:edit, :update, :show, :create]
+  resources :users, only: [:edit, :update, :show, :create, :destroy, :index]
   resources :tests, only: [:edit, :update, :show, :create]
 
 end

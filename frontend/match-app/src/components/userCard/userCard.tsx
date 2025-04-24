@@ -1,17 +1,27 @@
+'use client'
+import { responseUserType } from "@/lib/getAllUsers";
 import Button from "../button";
+import { HTMLAttributes } from "react";
+import ClientBtn from "../clientbutton/clientBtn";
 
-export default function UserCard(){
+type userCardType = {
+  userid: number,
+  username: string,
+  fieldtype: string,
+} & HTMLAttributes<HTMLDivElement>  
+
+export default function UserCard({userid, username, fieldtype, ...props}: userCardType){
   return(
-    <div>
+    <div {...props}>
       <div>
-        Username: Anonymous
+        Username: {username}
       </div>
 
       <div>
-        desire field: front-end
+        desire field: {fieldtype}
       </div>
 
-      <Button>Go to chat</Button>
+      <ClientBtn text="go to chat" onclickfunction={() => {console.log(userid)}}/>
     </div>
   )
 }
