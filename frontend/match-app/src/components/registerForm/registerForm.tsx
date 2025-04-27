@@ -1,8 +1,8 @@
 'use client'
 import { AddUser } from "@/lib/addUser";
 import Button from "../button";
-import Input from "../input";
-import InputPass from "../inputPass";
+import Input from "../InputFIeld/input";
+import InputPass from "../InputFIeld/inputPass";
 import { useState } from "react";
 import Selection from "../selection";
 
@@ -81,6 +81,8 @@ export default function RegisterForm(){
             Submit
           </Button>
         </div>
+
+        <p className=" text-sm">*password must be more than six characters long</p>
       </form>
   )
 }

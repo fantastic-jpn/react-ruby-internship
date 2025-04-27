@@ -2,8 +2,8 @@
 
 import { validateLogin } from "@/lib/login";
 import Button from "../button";
-import Input from "../input";
-import InputPass from "../inputPass";
+import Input from "../InputFIeld/input";
+import InputPass from "../InputFIeld/inputPass";
 import { useState } from "react";
 
 type loginType = {

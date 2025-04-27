@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Button from "../button";
-import Input from "../input";
+import Input from "../InputFIeld/input";
 import Selection from "../selection";
 import { AddCorp } from "@/lib/addCorp";
 
@@ -48,7 +48,7 @@ export default function RegisterCorpForm(){
               <label htmlFor="corpName" className="text-sm font-medium text-gray-700">
                 Corporation Name
               </label>
-              <Input id="corpName" name="corpName" placeholder="Enter your Corporation name" type="text"/>
+              <Input id="name" name="name" placeholder="Enter your Corporation name" type="text"/>
               {
                 errors?.corpName &&(
                   <p className="text-sm text-red-500">{errors.corpName[0]}</p>
@@ -61,7 +61,7 @@ export default function RegisterCorpForm(){
               <label htmlFor="corptype" className="text-sm font-medium text-gray-700">
                 Main Field:
               </label>
-              <Selection values={["front-end","back-end", "full-stack", "AI engineer",  ]} name="corptype" id="corptype" />
+              <Selection values={["front-end","back-end", "full-stack", "AI engineer",  ]} name="fieldtype" id="fieldtype" />
               {
                 errors?.corptype &&(
                   <p className="text-sm text-red-500">{errors.corptype[0]}</p>

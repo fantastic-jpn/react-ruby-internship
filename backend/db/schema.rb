@@ -10,7 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_22_091102) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_27_054112) do
+  create_table "chats", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.text "message"
+    t.bigint "users_id", null: false
+    t.bigint "corps_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["corps_id"], name: "index_chats_on_corps_id"
+    t.index ["users_id"], name: "index_chats_on_users_id"
+  end
+
+  create_table "corps", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "username"
+    t.string "name"
+    t.string "fieldtype"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "tests", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "user"
     t.string "pass"
@@ -26,4 +44,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_22_091102) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "chats", "corps", column: "corps_id"
+  add_foreign_key "chats", "users", column: "users_id"
 end

@@ -1,7 +1,8 @@
 'use client'
+import React from "react";
 import Button from "../button";
 
-type clientBtnType = {
+type clientBtnType = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   text: string
   onclickfunction: () => void
 }

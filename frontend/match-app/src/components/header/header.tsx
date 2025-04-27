@@ -12,9 +12,9 @@ export default function Header() {
           <li className="hover:text-blue-600 transition cursor-pointer">
             <Link href={"/register"}>アカウント追加</Link> 
           </li>
-          {/* <li className="hover:text-blue-600 transition cursor-pointer">
+          <li className="hover:text-blue-600 transition cursor-pointer">
             <Link href={"/registercorp"}>企業様はこちら</Link>
-          </li> */}
+          </li>
           {/* <li className="hover:text-blue-600 transition cursor-pointer">
             <Link href={"/login"}>ログイン</Link>
           </li> */}

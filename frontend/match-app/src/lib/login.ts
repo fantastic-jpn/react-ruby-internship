@@ -28,11 +28,4 @@ export async function validateLogin(formdata: FormData){
 
   revalidatePath("/")
   redirect("/")
-
-
-
-
-  //fetch ruby server backend and validate whether username and password matches with the one in db
-  revalidatePath("/")
-  redirect("/")
 }

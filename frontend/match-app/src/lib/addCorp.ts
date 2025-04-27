@@ -9,12 +9,12 @@ const registerCorpSchema = z.object({
     .string()
     .email({ message: "Invalid email address" })
     .nonempty({ message: "Username is required" }),
-  corpName: z
+  name: z
     .string()
     .nonempty({message: "This field is required"})
     .min(1, {message: "This field needs more than 1 character"})
     ,
-  corptype: z
+  fieldtype: z
     .string()
     .nonempty({ message: "Main field is required" })
     .refine((value) => ["front-end", "back-end", "full-stack", "AI engineer"].includes(value), {
@@ -37,12 +37,20 @@ export async function AddCorp(formdata: FormData){
 
   const validData: registerCorpSchemaType = result.data
 
-  console.log(validData)
-
   //fetch to ruby on rails backend
 
-  // const res = await fetch()
+  const res = await fetch("http://backend:3000/corps",  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ corp: validData }), 
+  })
 
+  if (!res.ok) {
+    console.error(await res.text());
+    throw new Error("Failed to register user.");
+  }
   revalidatePath("/")
   redirect("/")
 }

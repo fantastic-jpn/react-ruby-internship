@@ -15,5 +15,8 @@ Rails.application.routes.draw do
   # create: 新しいユーザーを作成するアクションだよ。(POST /users)
   resources :users, only: [:edit, :update, :show, :create, :destroy, :index]
   resources :tests, only: [:edit, :update, :show, :create]
-
+  resources :corps, only: [:create, :destroy, :update, :edit]
+  resources :chats, only: [:create]
+  post '/chats/all', to: 'chats#show'
+  post '/corps/login', to: 'corps#login'
 end

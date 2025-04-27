@@ -15,16 +15,15 @@ export default async function Home() {
       
       <MainSlide />
       <SubSlide />
+      <section className=" flex gap-2">
 
       {
         usersdata.map(user => (
-
+          
           <UserCard key={user.id} userid={user.id} username={user.username} fieldtype={user.fieldtype}/>
         ))
       }
-      <Testbtn />
-
-      <Button onClick={getAllUsers}>get users</Button>
+      </section>
     </div>
   );
 }
