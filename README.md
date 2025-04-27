@@ -7,8 +7,8 @@
 1. **リポジトリをクローン**
 
    ```bash
-git clone <このリポジトリのURL>
-cd <プロジェクト名>
+   git clone <このリポジトリのURL>
+   cd <プロジェクト名>
    ```
 
 2. **`db-data` ディレクトリを作成**
@@ -16,7 +16,7 @@ cd <プロジェクト名>
    MySQLのデータ永続化用ディレクトリを作成します。
 
    ```bash
-mkdir db-data
+   mkdir db-data
    ```
 
    ※ `docker-compose.yml`と同じ階層に作成してください。
@@ -24,7 +24,7 @@ mkdir db-data
 3. **Dockerコンテナを起動**
 
    ```bash
-docker compose up --build
+   docker compose up --build
    ```
 
 4. **バックエンド(Rails)コンテナに入る**
@@ -32,7 +32,7 @@ docker compose up --build
    別ターミナルを開いて、Railsのコンテナに入ります。
 
    ```bash
-docker compose exec backend bash
+   docker compose exec backend bash
    ```
 
 5. **データベース作成とマイグレーション**
@@ -40,8 +40,8 @@ docker compose exec backend bash
    コンテナ内で以下を実行します。
 
    ```bash
-rails db:create
-rails db:migrate
+   rails db:create
+   rails db:migrate
    ```
 
 6. **Railsサーバーを起動**
@@ -49,7 +49,7 @@ rails db:migrate
    後続して Rails サーバーを起動します。
 
    ```bash
-rails s -b '0.0.0.0'
+   rails s -b '0.0.0.0'
    ```
 
 7. **ブラウザで Railsが起動しているか確認**
@@ -66,8 +66,8 @@ http://localhost:3000
 
    別のターミナルを開き、Next.jsのコンテナに入ります。
 
-   ```bash
-docker compose exec frontend bash
+ ```bash
+   docker compose exec frontend bash
    ```
 
 9. **Next.jsパッケージをインストール**
